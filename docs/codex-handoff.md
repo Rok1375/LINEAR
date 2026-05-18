@@ -27,6 +27,8 @@ Implemented so far:
 - `SOR-25`: Added starter prompt testing notes and static validation for required prompt metadata/example sections.
 - `SOR-34`: Added a 25-record web animation/frontend creative source map with official docs, repos, packages, examples, verification notes, and prototype shortlist.
 - `SOR-35`: Added a 30-record AI image/video generation source map covering hosted image/video APIs, local/open-source workflows, hubs, ComfyUI resources, manual-review flags, and prototype shortlist.
+- `SOR-36`: Added a 30-record 3D/motion/creative-coding source map covering Three.js, React Three Fiber, Babylon.js, Rive, Spline, Blender/glTF, shaders, WebGPU/WebGL, p5.js, TouchDesigner, galleries, communities, and tutorial sources.
+- `SOR-36`: Added a 30-record 3D/motion/creative-coding source map covering 3D engines, React 3D, Spline, Rive, p5.js, shaders, WebGPU, Blender-to-web, glTF QA, TouchDesigner, showcases, and difficulty flags.
 
 ## Architecture notes
 
