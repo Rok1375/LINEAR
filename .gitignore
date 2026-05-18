@@ -1,0 +1,14 @@
+node_modules
+.next
+.env*
+!.env.example
+codex-memory-export/
+out
+dist
+coverage
+*.tsbuildinfo
+*.log
+package-lock.json
+pnpm-lock.yaml
+yarn.lock
+.DS_Store
