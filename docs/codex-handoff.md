@@ -25,6 +25,7 @@ Implemented so far:
 - `SOR-21`: Added setup, environment, quality-check, Vercel deployment, known-limitations, and next-phase documentation.
 - `SOR-26`: Prompt library README now documents category expansion rules and candidate future categories.
 - `SOR-25`: Added starter prompt testing notes and static validation for required prompt metadata/example sections.
+- `SOR-34`: Added a 25-record web animation/frontend creative source map with official docs, repos, packages, examples, verification notes, and prototype shortlist.
 
 ## Architecture notes
 
@@ -40,21 +41,22 @@ Implemented so far:
 - `scripts/static-workflow-check.mjs` validates critical workflow coverage without requiring installed npm dependencies.
 - `docs/manual-qa-checklist.md` captures browser/manual QA for flows that need runtime interaction.
 - `README.md` is the primary setup/deployment guide, with `.env.example` as the safe environment template.
+- `docs/creative-production-research/web-animation-frontend-source-map.md` captures source discovery targets and verification rules for creative frontend/animation research.
 
 ## Verification status
 
-The implementation has been manually inspected for stale references and obvious API mismatches. A full install/build/typecheck has not been run yet because the current environment did not expose a usable package manager.
+The implementation has been manually inspected for stale references and obvious API mismatches. The no-dependency static workflow check passes in this environment; a full install/build/typecheck/lint/test pass still needs package tooling.
 
 Recommended next checks once Node package tooling is available:
 
 ```powershell
-npm install
-npm run typecheck
-npm run lint
-npm run build
-npm run dev
+pnpm install
+pnpm typecheck
+pnpm lint
+pnpm build
+pnpm dev
 ```
 
 ## Remaining backlog direction
 
-The primary Prompt Library app backlog is now in review. Next useful work is installing dependencies and running `npm run typecheck`, `npm run lint`, `npm run test`, `npm run build`, then performing the manual QA checklist.
+The primary Prompt Library app backlog is now in review. Next useful work is installing dependencies, running the full quality pass, continuing manual QA against the browser flow checklist, and then picking up the next Linear issue in priority order.
