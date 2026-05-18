@@ -26,6 +26,7 @@ Implemented so far:
 - `SOR-26`: Prompt library README now documents category expansion rules and candidate future categories.
 - `SOR-25`: Added starter prompt testing notes and static validation for required prompt metadata/example sections.
 - `SOR-34`: Added a 25-record web animation/frontend creative source map with official docs, repos, packages, examples, verification notes, and prototype shortlist.
+- `SOR-35`: Added a 30-record AI image/video generation source map covering hosted image/video APIs, local/open-source workflows, hubs, ComfyUI resources, manual-review flags, and prototype shortlist.
 
 ## Architecture notes
 
