@@ -63,3 +63,5 @@ pnpm dev
 ## Remaining backlog direction
 
 The primary Prompt Library app backlog is now in review. Next useful work is installing dependencies, running the full quality pass, continuing manual QA against the browser flow checklist, and then picking up the next Linear issue in priority order.
+
+- `SOR-52`: Added an isolated Next.js motion prototype route at `app/prototype/motion/page.tsx`, with GSAP reveal + Motion card interactions in `src/components/prototypes/prototype-motion-section.tsx`, responsive/reduced-motion styles in `src/components/prototypes/prototype-motion-section.module.css`, and results summary in `prototype-results/motion-baseline-next/report.md` (recommendation: Keep).
