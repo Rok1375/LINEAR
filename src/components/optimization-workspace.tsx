@@ -336,6 +336,93 @@ export function OptimizationWorkspace() {
         </form>
 
         <aside className="detail-sidebar">
+          {selectedPrompt && (
+            <section className="detail-panel wiki-reference-panel">
+              <h3>Wiki Production Reference</h3>
+              <p>
+                Reference the library guidelines in the wiki to ensure this prompt complies with our creative technology standards.
+              </p>
+              <ul className="wiki-reference-links">
+                {selectedPrompt.categoryId === "website-design" && (
+                  <>
+                    <li>
+                      <Link href="/wiki/web-animation-frontend-source-map" className="wiki-panel-link">
+                        📖 Web Animation Source Map
+                      </Link>
+                    </li>
+                    <li>
+                      <Link href="/wiki/frontend-animation-records" className="wiki-panel-link">
+                        📖 UI Components & Animation Records
+                      </Link>
+                    </li>
+                    <li>
+                      <Link href="/wiki/3d-asset-pipeline" className="wiki-panel-link">
+                        📖 3D Asset Pipeline Playbook
+                      </Link>
+                    </li>
+                  </>
+                )}
+                {selectedPrompt.categoryId === "image-generation" && (
+                  <>
+                    <li>
+                      <Link href="/wiki/ai-image-video-source-map" className="wiki-panel-link">
+                        📖 AI Image & Video Source Map
+                      </Link>
+                    </li>
+                    <li>
+                      <Link href="/wiki/image-generation-records" className="wiki-panel-link">
+                        📖 Image Generation Records
+                      </Link>
+                    </li>
+                  </>
+                )}
+                {selectedPrompt.categoryId === "video-generation" && (
+                  <>
+                    <li>
+                      <Link href="/wiki/video-generation-playbook" className="wiki-panel-link">
+                        📖 Video Generation Playbook
+                      </Link>
+                    </li>
+                    <li>
+                      <Link href="/wiki/video-generation-records" className="wiki-panel-link">
+                        📖 Video Generation Records
+                      </Link>
+                    </li>
+                    <li>
+                      <Link href="/wiki/web-video-stack-guidance" className="wiki-panel-link">
+                        📖 Web & Video Stack Guidance
+                      </Link>
+                    </li>
+                  </>
+                )}
+                {selectedPrompt.categoryId === "ai-agents" && (
+                  <>
+                    <li>
+                      <Link href="/wiki/agents-automation-crawling-source-map" className="wiki-panel-link">
+                        📖 Agents & Automation Source Map
+                      </Link>
+                    </li>
+                    <li>
+                      <Link href="/wiki/ethical-crawling-policy" className="wiki-panel-link">
+                        📖 Ethical Crawling Policy
+                      </Link>
+                    </li>
+                    <li>
+                      <Link href="/wiki/agent-automation-records" className="wiki-panel-link">
+                        📖 Agent Skills & Automation Records
+                      </Link>
+                    </li>
+                  </>
+                )}
+                <li>
+                  <Link href="/wiki" className="wiki-panel-link highlight-link">
+                    📚 Go to Wiki Index
+                  </Link>
+                </li>
+              </ul>
+            </section>
+          )}
+
           <section className="detail-panel">
             <h3>Source prompt</h3>
             {selectedPrompt ? (

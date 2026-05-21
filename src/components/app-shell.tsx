@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { PropsWithChildren } from "react";
+import { motion, AnimatePresence } from "motion/react";
 
 const navigation = [
   { href: "/library", label: "Library" },
@@ -58,7 +59,19 @@ export function AppShell({ children }: PropsWithChildren) {
           </Link>
         </header>
 
-        <main className="content-frame">{children}</main>
+        <main className="content-frame">
+          <AnimatePresence mode="wait" initial={false}>
+            <motion.div
+              key={pathname}
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -8 }}
+              transition={{ duration: 0.3, ease: [0.25, 1, 0.5, 1] }}
+            >
+              {children}
+            </motion.div>
+          </AnimatePresence>
+        </main>
       </div>
     </div>
   );
