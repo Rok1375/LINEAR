@@ -5,11 +5,13 @@
   "packageManager": "pnpm@11.1.2",
   "scripts": {
     "dev": "next dev",
+    "wiki:generate": "node scripts/generate-wiki-index.mjs",
+    "prebuild": "node scripts/generate-wiki-index.mjs",
     "build": "next build",
     "start": "next start",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
-    "test": "node scripts/static-workflow-check.mjs"
+    "test": "node scripts/generate-wiki-index.mjs && node scripts/static-workflow-check.mjs"
   },
   "dependencies": {
     "@linear/sdk": "^84.0.0",

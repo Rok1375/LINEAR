@@ -7,6 +7,7 @@ export type PromptPackInput = {
   offer: string;
   tone: string;
   primaryAction: string;
+  referenceUrl?: string;
 };
 
 export type GeneratedPromptPack = {
@@ -170,6 +171,123 @@ function buildValidationGates(mode: ProjectMode) {
   ];
 }
 
+export type PreflightStatus = "pass" | "warning" | "failed";
+
+export type PreflightCheckItem = {
+  id: string;
+  name: string;
+  status: PreflightStatus;
+  message: string;
+};
+
+export function runStitchPreflight(input: PromptPackInput): PreflightCheckItem[] {
+  const checks: PreflightCheckItem[] = [];
+  const placeholderRegex = /\[.*?\]|<.*?>|todo|placeholder|insert\s+here/i;
+
+  const checkField = (id: string, name: string, value: string, required = true) => {
+    const trimmed = (value || "").trim();
+    if (required && !trimmed) {
+      checks.push({
+        id,
+        name,
+        status: "failed",
+        message: `${name} is required.`
+      });
+    } else if (placeholderRegex.test(trimmed)) {
+      checks.push({
+        id,
+        name,
+        status: "warning",
+        message: `${name} contains placeholder text.`
+      });
+    } else {
+      checks.push({
+        id,
+        name,
+        status: "pass",
+        message: required ? `${name} is specified.` : `${name} is optional and not provided.`
+      });
+    }
+  };
+
+  checkField("projectName", "Project name", input.projectName);
+  checkField("audience", "Audience", input.audience);
+  checkField("offer", "Offer", input.offer);
+  checkField("tone", "Tone", input.tone);
+  checkField("primaryAction", "Primary action", input.primaryAction);
+
+  // Reference URL crawling validation
+  const refUrl = (input.referenceUrl || "").trim();
+  if (!refUrl) {
+    checks.push({
+      id: "referenceUrl",
+      name: "Reference URL",
+      status: "pass",
+      message: "No URL provided (skipping crawling check)."
+    });
+  } else {
+    try {
+      const parsedUrl = new URL(refUrl);
+      if (!/^https?:$/i.test(parsedUrl.protocol)) {
+        checks.push({
+          id: "referenceUrl",
+          name: "Reference URL",
+          status: "failed",
+          message: "Reference URL must use HTTP or HTTPS protocol."
+        });
+      } else {
+        const hostname = parsedUrl.hostname.toLowerCase();
+        // Ethical crawling check
+        const socialPlatforms = [
+          "youtube.com", "youtu.be",
+          "twitter.com", "x.com",
+          "facebook.com", "linkedin.com",
+          "reddit.com", "instagram.com",
+          "pinterest.com", "tiktok.com"
+        ];
+        const apiPlatforms = [
+          "github.com", "npmjs.com", "pypi.org"
+        ];
+
+        const isSocial = socialPlatforms.some(platform => hostname.endsWith(platform));
+        const isApiPreferred = apiPlatforms.some(platform => hostname.endsWith(platform));
+
+        if (isSocial) {
+          checks.push({
+            id: "referenceUrl",
+            name: "Reference URL",
+            status: "warning",
+            message: "Social/community platform detected. Crawling restricted by Ethical Crawling Policy (manual review preferred)."
+          });
+        } else if (isApiPreferred) {
+          checks.push({
+            id: "referenceUrl",
+            name: "Reference URL",
+            status: "warning",
+            message: "API preferred platform detected. Use official endpoints instead of crawling."
+          });
+        } else {
+          checks.push({
+            id: "referenceUrl",
+            name: "Reference URL",
+            status: "pass",
+            message: "Valid URL format. Rate-limited crawling permitted."
+          });
+        }
+      }
+    } catch {
+      checks.push({
+        id: "referenceUrl",
+        name: "Reference URL",
+        status: "failed",
+        message: "Invalid URL format. Please enter a valid absolute URL."
+      });
+    }
+  }
+
+  return checks;
+}
+
 export function generatePromptPack(input: PromptPackInput): GeneratedPromptPack {
   const config = modeConfig[input.mode];
   const structureItems = getModeItems(input.mode);
@@ -179,6 +297,20 @@ export function generatePromptPack(input: PromptPackInput): GeneratedPromptPack 
   const finalAgentPrompt = buildFinalAgentPrompt(input, structureItems);
   const validationGates = buildValidationGates(input.mode);
   const reportFilename = `${fileStem}-report.md`;
+
+  const preflightChecks = runStitchPreflight(input);
+  const preflightMarkdown = [
+    "## Preflight Checklist",
+    "",
+    ...preflightChecks.map((item) => {
+      let icon = "⚪";
+      if (item.status === "pass") icon = "✅";
+      if (item.status === "warning") icon = "⚠️";
+      if (item.status === "failed") icon = "❌";
+      return `- ${icon} **${item.name}**: ${item.status.toUpperCase()} - ${item.message}`;
+    })
+  ].join("\n");
+
   const reportMarkdown = [
     `# ${config.label} Prompt Pack Report`,
     "",
@@ -186,6 +318,8 @@ export function generatePromptPack(input: PromptPackInput): GeneratedPromptPack 
     `Project: ${valueOrFallback(input.projectName, "Untitled project")}`,
     `Audience: ${valueOrFallback(input.audience, "Not specified")}`,
     `Output filename: ${reportFilename}`,
+    "",
+    preflightMarkdown,
     "",
     `## ${config.structureTitle}`,
     "",

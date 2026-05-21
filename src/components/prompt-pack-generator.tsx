@@ -4,7 +4,8 @@ import { useMemo, useState } from "react";
 import {
   DEFAULT_GENERATION_MODE,
   ProjectMode,
-  generatePromptPack
+  generatePromptPack,
+  runStitchPreflight
 } from "@/lib/prompt-pack-generator";
 
 const modeOptions: Array<{ value: ProjectMode; label: string; description: string }> = [
@@ -27,8 +28,28 @@ export function PromptPackGenerator() {
   const [offer, setOffer] = useState("a planning workspace that turns rough ideas into testable launch plans");
   const [tone, setTone] = useState("calm, focused, credible");
   const [primaryAction, setPrimaryAction] = useState("start a free workspace");
+  const [referenceUrl, setReferenceUrl] = useState("");
   const [generated, setGenerated] = useState(false);
   const [copyStatus, setCopyStatus] = useState("");
+
+  const preflightChecklist = useMemo(
+    () =>
+      runStitchPreflight({
+        mode,
+        projectName,
+        audience,
+        offer,
+        tone,
+        primaryAction,
+        referenceUrl
+      }),
+    [mode, projectName, audience, offer, tone, primaryAction, referenceUrl]
+  );
+
+  const hasFailedChecks = useMemo(
+    () => preflightChecklist.some((item) => item.status === "failed"),
+    [preflightChecklist]
+  );
 
   const promptPack = useMemo(
     () =>
@@ -38,9 +59,10 @@ export function PromptPackGenerator() {
         audience,
         offer,
         tone,
-        primaryAction
+        primaryAction,
+        referenceUrl
       }),
-    [audience, mode, offer, primaryAction, projectName, tone]
+    [mode, projectName, audience, offer, tone, primaryAction, referenceUrl]
   );
 
   async function copyReport() {
@@ -62,8 +84,14 @@ export function PromptPackGenerator() {
             Generate a prompt pack for either a focused landing page or a full website/app without mixing the two scopes.
           </p>
         </div>
-        <button type="button" className="primary-button" onClick={() => setGenerated(true)}>
-          Generate prompt pack
+        <button
+          type="button"
+          className="primary-button"
+          onClick={() => setGenerated(true)}
+          disabled={hasFailedChecks}
+          title={hasFailedChecks ? "Please fix the failing inputs in the checklist below." : undefined}
+        >
+          {hasFailedChecks ? "Checks Failing" : "Generate prompt pack"}
         </button>
       </div>
 
@@ -128,6 +156,75 @@ export function PromptPackGenerator() {
             <span>Primary action</span>
             <input value={primaryAction} onChange={(event) => setPrimaryAction(event.target.value)} />
           </label>
+          <label className="field">
+            <span>Reference URL (optional)</span>
+            <input
+              value={referenceUrl}
+              onChange={(event) => setReferenceUrl(event.target.value)}
+              placeholder="e.g. https://github.com/my-project"
+            />
+          </label>
+        </div>
+      </section>
+
+      <section className="form-panel" aria-labelledby="preflight-checklist-title">
+        <div className="section-heading">
+          <div>
+            <p className="eyebrow">Preflight</p>
+            <h3 id="preflight-checklist-title">Real-time Preflight Checklist</h3>
+          </div>
+        </div>
+        <div style={{ display: "grid", gap: "12px", marginTop: "12px" }}>
+          {preflightChecklist.map((item) => {
+            let statusStyle = {};
+            let icon = "⚪";
+            if (item.status === "pass") {
+              statusStyle = { backgroundColor: "var(--accent-soft)", color: "var(--accent-deep)" };
+              icon = "✅";
+            } else if (item.status === "warning") {
+              statusStyle = { backgroundColor: "#fff3bf", color: "#674d00" };
+              icon = "⚠️";
+            } else if (item.status === "failed") {
+              statusStyle = { backgroundColor: "#fce8e6", color: "var(--danger)" };
+              icon = "❌";
+            }
+
+            return (
+              <div
+                key={item.id}
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                  padding: "12px 16px",
+                  borderRadius: "var(--radius-sm)",
+                  border: "1px solid var(--surface-border)",
+                  backgroundColor: "rgba(255, 255, 255, 0.4)"
+                }}
+              >
+                <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+                  <span style={{ fontSize: "1.25rem" }} aria-hidden="true">{icon}</span>
+                  <div>
+                    <strong style={{ display: "block", fontSize: "0.95rem" }}>{item.name}</strong>
+                    <span style={{ fontSize: "0.85rem", color: "var(--text-muted)" }}>{item.message}</span>
+                  </div>
+                </div>
+                <span
+                  style={{
+                    padding: "4px 10px",
+                    borderRadius: "999px",
+                    fontSize: "0.78rem",
+                    fontWeight: 600,
+                    textTransform: "uppercase",
+                    letterSpacing: "0.05em",
+                    ...statusStyle
+                  }}
+                >
+                  {item.status}
+                </span>
+              </div>
+            );
+          })}
         </div>
       </section>
 

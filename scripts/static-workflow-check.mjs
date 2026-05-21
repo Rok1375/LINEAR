@@ -74,7 +74,10 @@ const checks = [
   ["src/components/prompt-detail.tsx", "restoreVersion", "version restore action"],
   ["src/components/prompt-detail.tsx", "duplicateVersion", "version duplicate action"],
   ["src/components/prompt-form.tsx", "generationMode", "generation mode option"],
-  ["src/components/optimization-workspace.tsx", "generationMode", "generation mode optimization option"]
+  ["src/components/optimization-workspace.tsx", "generationMode", "generation mode optimization option"],
+  ["docs/wiki-index.md", "# AI Creative Library - Wiki Index", "wiki index header"],
+  ["docs/wiki-index.md", "Pillar I: AI Media Generation", "wiki index pillar 1"],
+  ["scripts/generate-wiki-index.mjs", "documentMeta", "wiki index generator script"]
 ];
 
 for (const [file, pattern, label] of checks) {
@@ -143,4 +146,22 @@ for (const file of activePromptFiles) {
 const activeSeedSourceCount = (promptStore.match(/Source: prompt-library\/.*-v2\.md/g) ?? []).length;
 assertCount("active v2 seed prompt source records", activeSeedSourceCount, activePromptFiles.length);
 
+console.log("Checking Wiki Index structure and contents...");
+const wikiIndex = read("docs/wiki-index.md");
+if (!wikiIndex.includes("# AI Creative Library - Wiki Index")) {
+  throw new Error("docs/wiki-index.md is missing the main header");
+}
+const expectedPillars = [
+  "Pillar I: AI Media Generation",
+  "Pillar II: Autonomous & AI Systems",
+  "Pillar III: Creative Frontend Engineering",
+  "Pillar IV: System Architecture"
+];
+for (const pillar of expectedPillars) {
+  if (!wikiIndex.includes(pillar)) {
+    throw new Error(`docs/wiki-index.md is missing required pillar: ${pillar}`);
+  }
+}
+
 console.log(`Static workflow checks passed: ${checks.length + 3 + promptFiles.length + activePromptFiles.length} checks.`);
+
