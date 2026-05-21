@@ -212,6 +212,20 @@ export function PromptForm({ promptId }: PromptFormProps) {
           </label>
 
           <label className="field field-wide">
+            <span>Generation Mode</span>
+            <select
+              value={draft.generationMode || "landing_page"}
+              onChange={(event) => updateDraft("generationMode", event.target.value as "landing_page" | "full_site")}
+            >
+              <option value="landing_page">Landing Page</option>
+              <option value="full_site">Full Site</option>
+            </select>
+            <p className="field-hint text-sm text-gray-500 mt-1">
+              Shapes the output structure for Stitch prompts, image prompts, and agent workflows.
+            </p>
+          </label>
+
+          <label className="field field-wide">
             <span>Notes</span>
             <textarea
               value={draft.notes}

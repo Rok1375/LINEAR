@@ -1,0 +1,101 @@
+.prototype-3d-hero-container {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  background-color: #050505; /* Dark luxury */
+  color: #f0f0f0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.prototype-3d-hero-content {
+  position: absolute;
+  z-index: 10;
+  max-width: 800px;
+  text-align: center;
+  padding: 2rem;
+  pointer-events: none; /* Let mouse events pass through to canvas */
+}
+
+.prototype-3d-hero-headline {
+  font-family: 'Inter', 'Outfit', sans-serif;
+  font-size: clamp(3rem, 5vw, 5rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin-bottom: 1rem;
+  line-height: 1.1;
+  text-transform: lowercase;
+}
+
+.prototype-3d-hero-subtext {
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(1rem, 2vw, 1.25rem);
+  color: #a0a0a0;
+  margin-bottom: 2.5rem;
+  line-height: 1.6;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.prototype-3d-hero-cta-group {
+  display: flex;
+  gap: 1.5rem;
+  justify-content: center;
+  pointer-events: auto; /* Re-enable for buttons */
+}
+
+.prototype-btn {
+  padding: 1rem 2rem;
+  border-radius: 9999px;
+  font-weight: 500;
+  font-family: 'Inter', sans-serif;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  border: none;
+  font-size: 1rem;
+}
+
+.prototype-btn-primary {
+  background: #ffffff;
+  color: #000000;
+}
+
+.prototype-btn-primary:hover {
+  background: #e0e0e0;
+  transform: translateY(-2px);
+}
+
+.prototype-btn-secondary {
+  background: transparent;
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.prototype-btn-secondary:hover {
+  border-color: rgba(255, 255, 255, 0.5);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.prototype-canvas-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+/* Fallback for reduced motion / mobile / low power */
+@media (prefers-reduced-motion: reduce), (max-width: 768px) {
+  .prototype-canvas-wrapper {
+    display: none;
+  }
+  
+  .prototype-3d-hero-container {
+    background: radial-gradient(circle at center, #1a1a1a 0%, #050505 100%);
+  }
+}
