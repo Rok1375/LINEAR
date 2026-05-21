@@ -191,7 +191,6 @@ export function WikiIndexView({ blocks }: WikiIndexViewProps) {
       {/* Wiki Dynamic Blocks */}
       <div ref={contentRef} className="wiki-content">
         {(() => {
-          let currentSectionId = "";
           let sectionPillarIndex = 0;
 
           return blocks.map((block, idx) => {
@@ -207,7 +206,7 @@ export function WikiIndexView({ blocks }: WikiIndexViewProps) {
             if (block.type === "heading" && block.level === 2) {
               // Extract header id from heading text to align with anchors
               const anchorId = block.text.toLowerCase().replace(/[^a-z0-9\s-]/g, '').replace(/\s+/g, '-');
-              currentSectionId = anchorId;
+
               
               return (
                 <section key={idx} id={anchorId} className="wiki-section gsap-wiki-section">
