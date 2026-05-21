@@ -9,6 +9,9 @@ const navigation = [
   { href: "/prompts/new", label: "New Prompt" },
   { href: "/generate", label: "Generate" },
   { href: "/optimize", label: "Optimize" },
+  { href: "/wiki", label: "Wiki" },
+  { href: "/prototype/motion", label: "Motion Prototype" },
+  { href: "/prototype/3d", label: "3D Prototype" },
   { href: "/settings", label: "Settings" }
 ];
 
