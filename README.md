@@ -54,7 +54,13 @@ pnpm dev
 
 Open `http://localhost:3000/library`.
 
-Local prompt data is stored in browser storage. Use Settings -> Reset seed data to restore the 12 starter prompts.
+Local prompt data is stored in browser storage. Use Settings -> Reset seed data to restore the 20 starter prompts.
+
+Creative prototype routes are available for isolated research checks:
+
+- `/generate`: prompt-pack generator for landing-page and full-site prompt bundles.
+- `/prototype/motion`: GSAP plus Motion baseline with reduced-motion behavior.
+- `/prototype/3d`: React Three Fiber, Three.js, and Drei baseline with procedural geometry.
 
 ## Quality Checks
 
@@ -65,7 +71,28 @@ pnpm test
 pnpm build
 ```
 
-`npm run test` runs a no-dependency static workflow check that verifies the main prompt flows are still wired. Runtime QA is captured in `docs/manual-qa-checklist.md`.
+`pnpm test` runs a no-dependency static workflow check that verifies the main prompt flows are still wired. Runtime QA is captured in `docs/manual-qa-checklist.md`.
+
+### Windows Shim Fallback
+
+In this workspace, PowerShell can return `Access is denied` for the `pnpm` script shims and for `node` on `PATH`. When that happens, use the bundled Node executable directly:
+
+```powershell
+C:\Users\soren\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\bin\node.exe scripts\static-workflow-check.mjs
+C:\Users\soren\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\bin\node.exe node_modules\eslint\bin\eslint.js .
+C:\Users\soren\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\bin\node.exe node_modules\typescript\bin\tsc --noEmit
+C:\Users\soren\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\bin\node.exe node_modules\next\dist\bin\next build
+```
+
+Package versions for Next.js, React, React DOM, TypeScript, `eslint-config-next`, and React/Node type packages are pinned in `package.json` to avoid drift from `latest`.
+
+## Creative Production Guidance
+
+- `docs/creative-production-research/web-video-stack-guidance.md` explains when to use the installed web/video stack and which tools remain research-only.
+- `docs/creative-production-research/3d-asset-pipeline.md` defines GLB/GLTF licensing, optimization, validation, and fallback requirements before imported 3D assets move into production UI.
+- `docs/creative-production-research/video-generation-playbook.md` covers hosted/local video generation readiness, rights review, blocked provider states, and output QA.
+
+Tailwind, ShadCN, Remotion, Anime.js, PixiJS, Rive, Spline, Lenis, and Playwright are not installed. Do not assume them in implementation prompts unless this repository deliberately adopts them.
 
 ## Deployment
 
@@ -85,6 +112,7 @@ The app currently uses browser local storage for prompt persistence. That is sui
 - Optimization depends on a configured OpenAI API key.
 - There is no account system or cloud sync yet.
 - The current automated test is static; browser-based interaction tests should be added after a test runner is installed.
+- ComfyUI and Replicate video paths remain test-later until local service/model/workflow readiness or provider token/model/license review is complete.
 
 ## Next-Phase Ideas
 

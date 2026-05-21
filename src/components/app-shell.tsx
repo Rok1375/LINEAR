@@ -7,6 +7,7 @@ import { PropsWithChildren } from "react";
 const navigation = [
   { href: "/library", label: "Library" },
   { href: "/prompts/new", label: "New Prompt" },
+  { href: "/generate", label: "Generate" },
   { href: "/optimize", label: "Optimize" },
   { href: "/settings", label: "Settings" }
 ];
@@ -59,4 +60,3 @@ export function AppShell({ children }: PropsWithChildren) {
     </div>
   );
 }
-

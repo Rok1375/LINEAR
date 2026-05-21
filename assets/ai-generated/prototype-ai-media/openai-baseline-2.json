@@ -1,0 +1,16 @@
+﻿{
+    "tool":  "OpenAI Images API",
+    "model":  "gpt-image-1-mini",
+    "prompt":  "Create a premium dark luxury hero background for a motion-first digital designer portfolio. The scene should feel cinematic, futuristic, editorial, and high contrast, with refined depth, subtle reflective surfaces, and a strong sense of craft. Leave generous negative space for typography on the left side. Avoid generic stock-photo style, recognizable brands, copyrighted characters, logos, and readable text. Use a sophisticated black, graphite, deep teal, and warm gold accent palette. Output should be suitable as a website hero background.",
+    "settings":  {
+                     "size":  "1024x1024",
+                     "quality":  "low",
+                     "n":  2,
+                     "output_index":  2
+                 },
+    "output_path":  "assets/ai-generated/prototype-ai-media/openai-baseline-2.png",
+    "created_at":  "2026-05-19T03:45:14.2610681Z",
+    "cost_note":  "Low-quality 1024x1024 hosted test generation; confirm exact cost in OpenAI usage dashboard.",
+    "rights_review_note":  "Generated from text only with no private/client assets, logos, copyrighted characters, or readable text requested. Treat as test artifact pending model/provider usage review before publication.",
+    "quality_notes":  "Very minimal luxury composition with strong dark negative space and clean vertical geometry; useful for typography-heavy hero layouts."
+}
