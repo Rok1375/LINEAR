@@ -7,6 +7,7 @@ type OptimizationRequest = {
   tone?: string;
   constraints?: string;
   outputFormat?: string;
+  generationMode?: "landing_page" | "full_site";
 };
 
 type OptimizationResult = {
@@ -132,6 +133,11 @@ export async function POST(request: NextRequest) {
   const tone = body.tone?.trim() || "clear";
   const outputFormat = body.outputFormat?.trim() || "structured";
   const constraints = body.constraints?.trim() || "No extra constraints.";
+  const generationMode = body.generationMode || "landing_page";
+
+  const modeInstruction = generationMode === "landing_page"
+    ? "Optimize this prompt specifically for a single, polished landing page. Include a section-by-section prompt structure (e.g., hero, proof, services, process, pricing, FAQ, footer). Do not assume a full app."
+    : "Optimize this prompt for a full multi-page website or web app. Generate a sitemap, page roles, navigation, shared layout components, and page-by-page implementation prompts.";
 
   try {
     const response = await fetch("https://api.openai.com/v1/responses", {
@@ -155,6 +161,8 @@ export async function POST(request: NextRequest) {
                   `Target model or channel: ${targetModel}`,
                   `Tone: ${tone}`,
                   `Desired output format: ${outputFormat}`,
+                  `Generation mode: ${generationMode === "landing_page" ? "Landing Page (Section-by-section)" : "Full Site (Sitemap + Multi-page)"}`,
+                  `Mode constraints: ${modeInstruction}`,
                   `Constraints: ${constraints}`,
                   "",
                   "Source prompt:",

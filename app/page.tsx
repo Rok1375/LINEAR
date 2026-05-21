@@ -1,6 +1,8 @@
-import { redirect } from "next/navigation";
+// @ts-ignore
+import App from "../src/App";
+
 
 export default function HomePage() {
-  redirect("/library");
+  return <App />;
 }
 

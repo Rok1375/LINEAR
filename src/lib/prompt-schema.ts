@@ -19,6 +19,7 @@ export type PromptVersion = {
   tags: string[];
   categoryId: string;
   folderId: string;
+  generationMode?: "landing_page" | "full_site";
 };
 
 export type PromptRecord = {
@@ -30,6 +31,7 @@ export type PromptRecord = {
   tags: string[];
   categoryId: string;
   folderId: string;
+  generationMode?: "landing_page" | "full_site";
   variables: string[];
   isFavorite: boolean;
   createdAt: string;
@@ -47,6 +49,7 @@ export type PromptInput = {
   tags: string[];
   categoryId: string;
   folderId: string;
+  generationMode?: "landing_page" | "full_site";
 };
 
 export type PromptLibraryData = {

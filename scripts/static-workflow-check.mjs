@@ -40,7 +40,9 @@ const checks = [
   ["app/api/optimize/route.ts", "json_schema", "structured optimization output"],
   ["src/components/prompt-detail.tsx", "Version history", "version history UI"],
   ["src/components/prompt-detail.tsx", "restoreVersion", "version restore action"],
-  ["src/components/prompt-detail.tsx", "duplicateVersion", "version duplicate action"]
+  ["src/components/prompt-detail.tsx", "duplicateVersion", "version duplicate action"],
+  ["src/components/prompt-form.tsx", "generationMode", "generation mode option"],
+  ["src/components/optimization-workspace.tsx", "generationMode", "generation mode optimization option"]
 ];
 
 for (const [file, pattern, label] of checks) {

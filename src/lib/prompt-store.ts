@@ -285,7 +285,8 @@ const emptyDraft = (data: PromptLibraryData): PromptDraft => ({
   notes: "",
   tags: [],
   categoryId: data.categories[0]?.id ?? "",
-  folderId: data.folders[0]?.id ?? ""
+  folderId: data.folders[0]?.id ?? "",
+  generationMode: "landing_page"
 });
 
 function cloneSeedData(): PromptLibraryData {
@@ -362,7 +363,8 @@ function createVersionSnapshot(prompt: PromptRecord): PromptVersion {
     notes: prompt.notes,
     tags: prompt.tags,
     categoryId: prompt.categoryId,
-    folderId: prompt.folderId
+    folderId: prompt.folderId,
+    generationMode: prompt.generationMode
   };
 }
 

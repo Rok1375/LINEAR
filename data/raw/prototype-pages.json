@@ -1,0 +1,13 @@
+[
+  {
+    "url": "https://example.com/",
+    "title": "Example Domain",
+    "status": 200,
+    "contentType": "text/html",
+    "headings": [
+      "Example Domain"
+    ],
+    "mainText": "Example Domain\n\nThis domain is for use in documentation examples without needing permission. Avoid use in operations.\n\nLearn more",
+    "timestamp": "2026-05-19T03:03:04.729Z"
+  }
+]

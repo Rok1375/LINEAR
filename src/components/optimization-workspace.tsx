@@ -51,6 +51,7 @@ function buildRequestKey(input: {
   tone: OptimizationTone;
   constraints: string;
   outputFormat: OutputFormat;
+  generationMode: "landing_page" | "full_site";
 }) {
   return JSON.stringify(input);
 }
@@ -64,6 +65,7 @@ export function OptimizationWorkspace() {
   const [tone, setTone] = useState<OptimizationTone>("clear");
   const [constraints, setConstraints] = useState("");
   const [outputFormat, setOutputFormat] = useState<OutputFormat>("structured");
+  const [generationMode, setGenerationMode] = useState<"landing_page" | "full_site">("landing_page");
   const [draft, setDraft] = useState<OptimizationDraft | null>(null);
   const [isOptimizing, setIsOptimizing] = useState(false);
   const [optimizationError, setOptimizationError] = useState("");
@@ -82,9 +84,10 @@ export function OptimizationWorkspace() {
         targetModel,
         tone,
         constraints,
-        outputFormat
+        outputFormat,
+        generationMode
       }),
-    [constraints, effectivePromptId, goal, outputFormat, targetModel, tone]
+    [constraints, effectivePromptId, goal, outputFormat, targetModel, tone, generationMode]
   );
 
   const visibleDraft = draft?.requestKey === requestKey ? draft : null;
@@ -111,7 +114,8 @@ export function OptimizationWorkspace() {
           targetModel,
           tone: toneLabels[tone],
           constraints,
-          outputFormat: formatLabels[outputFormat]
+          outputFormat: formatLabels[outputFormat],
+          generationMode
         })
       });
       const responseText = await response.text();
@@ -185,7 +189,8 @@ export function OptimizationWorkspace() {
         notes,
         tags: selectedPrompt.tags,
         categoryId: selectedPrompt.categoryId,
-        folderId: selectedPrompt.folderId
+        folderId: selectedPrompt.folderId,
+        generationMode
       },
       selectedPrompt.id
     );
@@ -288,6 +293,14 @@ export function OptimizationWorkspace() {
                     {label}
                   </option>
                 ))}
+              </select>
+            </label>
+
+            <label className="field">
+              <span>Generation Mode</span>
+              <select value={generationMode} onChange={(event) => setGenerationMode(event.target.value as "landing_page" | "full_site")}>
+                <option value="landing_page">Landing Page</option>
+                <option value="full_site">Full Site</option>
               </select>
             </label>
 

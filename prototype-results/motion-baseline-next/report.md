@@ -16,10 +16,10 @@
 - Route exists and renders in-app without replacing existing flows.
 - Motion quality is suitable for premium baseline prototyping.
 - Reduced-motion fallback is in place.
-- Responsive behavior works across desktop/tablet/mobile breakpoints.
+- Responsive behavior works across desktop, tablet, and mobile breakpoints.
 
 ## Recommendation
-**Keep** — This baseline is lightweight, isolated, and suitable to iterate for richer cinematic sections.
+**Keep** - This baseline is lightweight, isolated, and suitable to iterate for richer cinematic sections.
 
 ## Test Later
 - Add scroll scrubbing with GSAP ScrollTrigger once route-level content depth increases.

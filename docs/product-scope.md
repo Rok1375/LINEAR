@@ -60,8 +60,9 @@ The first release is a local-first prompt workspace for a single user. It helps 
 ## Optimization workflow
 
 1. Open a saved prompt and choose `Optimize`, or open the optimization workspace directly.
-2. Select the source prompt, improvement goal, target model, tone, output format, and constraints.
-3. Run optimization to produce a review draft without changing the saved prompt.
+2. Select the source prompt, improvement goal, target model, tone, output format, constraints, and Generation Mode (Landing Page or Full Site).
+3. The generation mode shapes whether the optimized prompt focuses on a section-by-section structure (landing page) or includes a sitemap and page-level details (full site).
+4. Run optimization to produce a review draft without changing the saved prompt.
 4. Review the change summary, then copy, reject, or save the optimized output as a new prompt version.
 
 The MVP uses a local deterministic draft builder for the workflow shape. The future service integration can replace

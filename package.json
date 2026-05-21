@@ -12,18 +12,25 @@
     "test": "node scripts/static-workflow-check.mjs"
   },
   "dependencies": {
+    "@react-three/drei": "^10.7.7",
+    "@react-three/fiber": "^9.6.1",
+    "crawlee": "^3.16.0",
+    "gsap": "^3.15.0",
+    "motion": "^12.39.0",
     "next": "latest",
+    "playwright": "^1.60.0",
     "react": "latest",
     "react-dom": "latest",
-    "gsap": "^3.13.0",
-    "motion": "^12.23.24"
+    "three": "^0.184.0"
   },
   "devDependencies": {
+    "@playwright/test": "^1.60.0",
     "@types/node": "latest",
     "@types/react": "latest",
     "@types/react-dom": "latest",
     "eslint": "^9.39.1",
     "eslint-config-next": "latest",
     "typescript": "latest"
-  }
+  },
+  "type": "module"
 }

@@ -1,0 +1,57 @@
+{
+  "record": {
+    "id": "gsap",
+    "name": "GSAP",
+    "record_type": "open_source_library",
+    "category": "web_animation_frontend",
+    "subcategory": "JavaScript animation and scroll interaction",
+    "short_description": "GSAP is a JavaScript animation library used to create high-performance timeline, scroll, SVG, and UI animations.",
+    "primary_use_case": "Build cinematic portfolio interactions, scroll-triggered reveals, pinned sections, timeline sequences, and premium animated UI systems.",
+    "creative_value": "High value for premium motion-first websites because it supports precise timing, sequencing, scroll choreography, and advanced interaction polish.",
+    "official_url": "https://gsap.com/",
+    "source_urls": [
+      "https://gsap.com/docs/"
+    ],
+    "source_attribution": [
+      {
+        "url": "https://gsap.com/docs/",
+        "source_type": "official_docs",
+        "claims_verified": [
+          "animation_capabilities",
+          "integration_options"
+        ],
+        "checked_at": "2026-05-18",
+        "confidence": "high"
+      }
+    ],
+    "pricing_model": "mixed",
+    "license": "standard license / commercial terms apply where relevant",
+    "integration_options": [
+      "npm_package",
+      "manual_handoff"
+    ],
+    "quality_score": null,
+    "status": "draft",
+    "last_verified_at": "2026-05-18"
+  },
+  "draft_score": {
+    "weighted_score": 4.66,
+    "reasoning": "Strong fit for premium motion-first websites, scroll choreography, and cinematic UI systems. Low AI score does not reduce usefulness because AI is not the primary purpose of this tool.",
+    "quality_gates": {
+      "source_attribution": "pass",
+      "access_clarity": "pass",
+      "legal_pricing_clarity": "pass",
+      "workflow_relevance": "pass",
+      "maintenance_signal": "pass",
+      "safety_privacy": "pass"
+    },
+    "decision": "keep"
+  },
+  "blockers": [],
+  "human_review_checklist": [
+    "Verify pricing structure for commercial use",
+    "Test in a small portfolio section with ScrollTrigger",
+    "Ensure no private or login-only sources were used",
+    "Check source attribution"
+  ]
+}
